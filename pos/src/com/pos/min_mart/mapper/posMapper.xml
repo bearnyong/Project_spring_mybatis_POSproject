@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="posMapper">
+    <!-- 정산(CALCULATE) -->
+    <resultMap id="calculateResultMap" type="com.pos.min_mart.DTO.calculateDTO">
+        <result property="calculateDate" column="CALCULATE_DATE"/>
+        <result property="productNum" column="PRODUCT_NUM"/>
+        <result property="totalPrice" column="TOTAL_PRICE"/>
+        <result property="totalWeight" column="TOTAL_WEIGHT"/>
+    </resultMap>
+
+    <!-- 과일(FRUIT) -->
+    <resultMap id="fruitResultMap" type="com.pos.min_mart.DTO.fruitDTO">
+        <id property="fruitNum" column="FRUIT_NUM"/>
+        <result property="fruitName" column="FRUIT_NAME"/>
+        <result property="fruitPrice" column="FRUIT_PRICE"/>
+    </resultMap>
+
+    <!-- 주문(OORDER) -->
+    <resultMap id="oorderResultMap" type="com.pos.min_mart.DTO.oorderDTO">
+        <id property="oorderNum" column="OORDER_NUM"/>
+        <result property="productNum" column="PRODUCT_NUM"/>
+        <result property="weight" column="WEIGHT"/>
+    </resultMap>
+
+    <!-- 결제(PATMENT) -->
+    <resultMap id="paymentResultMap" type="com.pos.min_mart.DTO.paymentDTO">
+        <id property="oorderNum" column="OORDER_NUM"/>
+        <result property="totalPrice" column="TOTAL_PRICE"/>
+    </resultMap>
+
+    <!-- 제품(PRODUCT) -->
+    <resultMap id="productResultMap" type="com.pos.min_mart.DTO.productDTO">
+        <id property="productNum" column="PRODUCT_NUM"/>
+        <result property="fruitNum" column="FRUIT_NUM"/>
+        <result property="vegNum" column="VEG_NUM"/>
+        <result property="unit" column="UNIT"/>
+    </resultMap>
+
+    <!-- 채소(VEGETABLE) -->
+    <resultMap id="vegetableResultMap" type="com.pos.min_mart.DTO.vegetableDTO">
+        <id property="vegNum" column="VEG_NUM"/>
+        <result property="vegName" column="VEG_NAME"/>
+        <result property="vegPrice" column="VEG_PRICE"/>
+    </resultMap>
+
+
+
+    <select id="selectMenuList" resultMap="menuResultMap">
+        SELECT
+               A.MENU_CODE,
+               A.MENU_NAME,
+               A.MENU_PRICE,
+               A.CATEGORY_CODE,
+               A.ORDERABLE_STATUS
+        FROM TBL_MENU A
+        WHERE A.ORDERABLE_STATUS='Y'
+        ORDER BY A.MENU_CODE
+    </select>
+</mapper>
